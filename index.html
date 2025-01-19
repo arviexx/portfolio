@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+            padding-bottom: 60px; /* Space for footer */
+            background-image: url('img/pink.jpg');
+            background-size: cover;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* Header styling */
+        .header {
+            background-color: #04040400;
+            color: rgb(0, 0, 0);
+            padding: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 5; /* Ensure header is on top */
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            border: 2px solid white;
+            border-radius: 20px;
+        }
+
+        .burger-icon {
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 2%;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #f183deb3;
+            color: white;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px; /* Added padding to prevent overlap */
+            z-index: 6; /* Sidebar below the header */
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #c926a6;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Overlay for open sidebar */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-left: 0; /* Removed the padding-left for section */
+            transition: padding-left 0.3s;
+            padding-top: 60px; /* Add top padding for header */
+        }
+
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 80%; /* Adjust width as needed */
+            font-size: 36px;
+          
+        }
+
+        .home div {
+            flex: 1;
+            text-align: left;
+            margin-left: 10%;
+            margin-top: -13%;
+        }
+
+        .home img {
+            max-width: 400px;
+           margin-bottom: 30%;
+            border-radius: 50%;
+            margin-top: 17%;
+            border-style: ridge;
+            border-color: white;
+            margin-left: 8%;
+
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #040404;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            z-index: 2; /* Footer should be above the content */
+        }
+
+        button {
+            background-color: #fa75ce; /* Green background */
+            color: white; /* White text */
+            border: none; /* Remove the default border */
+            padding: 15px 32px; /* Padding inside the button */
+            text-align: center; /* Center the text */
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Inline block so it respects padding and width */
+            font-size: 16px; /* Font size */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            border-radius: 25px; /* Rounded corners */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #c73195; /* Slightly darker green on hover */
+            transform: translateY(-2px); /* Lift the button slightly on hover */
+        }
+
+        button:active {
+            background-color: #c73195; /* Darker green when the button is clicked */
+            transform: translateY(1px); /* Press the button down slightly when clicked */
+        }
+
+        button:focus {
+            outline: none; /* Remove the outline when focused */
+            box-shadow: 0 0 0 3px rgba(164, 38, 143, 0.6); /* Green outline for focus */
+        }
+
+        /* Media Queries for responsiveness */
+        @media screen and (max-width: 768px) {
+            .home {
+                flex-direction: column; /* Stack image on top, text below */
+                text-align: center;
+                font-size: 28px;
+            }
+
+            .home img {
+                max-width: 80%;
+                margin-bottom: 20px; /* Space between the image and text */
+            }
+
+            .burger-icon {
+                font-size: 32px;
+            }
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .sidebar a {
+                padding: 12px 15px;
+            }
+
+            footer {
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .home h1 {
+                font-size: 24px;
+            }
+
+            .home p {
+                font-size: 16px;
+            }
+
+            button {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+        }
+        /* About Me Section Styling */
+#about {
+  
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: -10%;
+}
+
+.about-container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 800px;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+#about h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#about p {
+    font-size: 24px;
+    line-height: 1.6;
+    color: #555;
+    margin-top: 0;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    #about h2 {
+        font-size: 28px;
+    }
+
+    #about p {
+        font-size: 16px;
+    }
+}
+/* Projects Section Styling */
+/* Projects Section Styling */
+#projects {
+
+    padding: 50px 0;
+    text-align: center;
+}
+
+.projects-container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1000px;
+    margin-top: 30%;
+}
+
+#projects h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* Each Project Item */
+.project-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.project-item img {
+   width: 40%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.project-description {
+    margin-top: 20px;
+}
+
+.project-description h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.project-description p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #fa75ce;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #c73195;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #c73195;
+    transform: translateY(1px);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(164, 38, 143, 0.6);
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    #projects h2 {
+        font-size: 28px;
+    }
+
+    .project-item {
+        margin-bottom: 30px;
+    }
+
+    .project-item img {
+        max-width: 50%;
+    }
+
+    .project-description h3 {
+        font-size: 20px;
+    }
+
+    .project-description p {
+        font-size: 16px;
+    }
+}
+/* Contact Section Styling */
+#contact {
+
+    padding: 50px 0;
+    text-align: center;
+    margin-bottom: 50%;
+}
+
+.contact-container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1000px;
+    margin-top: 90%;
+   
+}
+
+#contact h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* Contact Information */
+.contact-info {
+    margin-bottom: 40px;
+    border: 1px solid white;
+
+    border-radius: 20px;
+
+}
+
+.contact-info h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    font-size: 18px;
+    color: #555;
+    margin: 10px 0;
+}
+
+.contact-info a {
+    color: #fa75ce;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Social Icons */
+.social-icons a {
+    margin: 0 10px;
+    font-size: 36px; /* Font size for social icons */
+    color: #333;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.1);
+    color: #fa75ce; /* Change icon color on hover */
+}
+
+/* Contact Form */
+.contact-form h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 80%;
+    max-width: 600px;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    height: 150px;
+}
+
+.contact-form button {
+    background-color: #fa75ce;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+}
+
+.contact-form button:hover {
+    background-color: #c73195;
+    transform: translateY(-2px);
+}
+
+.contact-form button:active {
+    background-color: #c73195;
+    transform: translateY(1px);
+}
+
+.contact-form button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(164, 38, 143, 0.6);
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    #contact h2 {
+        font-size: 28px;
+    }
+
+    .contact-info h3 {
+        font-size: 24px;
+    }
+
+    .contact-info p {
+        font-size: 16px;
+    }
+
+    .contact-form h3 {
+        font-size: 24px;
+    }
+
+    .contact-form input, .contact-form textarea {
+        width: 90%;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <span class="burger-icon" onclick="openSidebar()">&#9776;</span>
+    <h1 style="margin-left: 10px;">ArviePortfolio</h1>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<div class="sidebar" id="sidebar">
+    <span class="close-btn" onclick="closeSidebar()">&times;</span>
+    <a href="#home">Home</a>
+    <a href="#about">About Me</a>
+    <a href="#projects">My Projects</a>
+    <a href="#contact">Contact Me</a>
+</div>
+
+<section id="home">
+    <div class="home">
+        <img src="img/arvie.png" alt="Arvilyn Alegado" />
+        <div>
+            <h2>Hi, I'm</h2>
+            <h1>Arvilyn Alegado</h1>
+            <p>I'm a beginner in web development.</p>
+            <button onclick="downloadCV()">Download CV</button>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="about-container">
+        <h2>About Me</h2>
+        <p>Hello, I'm Arvilyn Alegado, a beginner in web development.
+             I am passionate about learning new technologies and building web applications
+              that are not only functional but also user-friendly. My goal is to continually 
+              improve my skills and become a proficient full-stack developer. I enjoy problem-solving 
+              and am always excited to take on new challenges that help me grow.</p>
+    </div>
+</section>
+
+<section id="projects">
+    <div class="projects-container">
+        <h2>My Projects</h2>
+        
+        <div class="project-item">
+            <img src="img/arvie.png" alt="Project 1">
+            <div class="project-description">
+                <h3>Project Title 1</h3>
+                <p>This is a brief description of the project. It outlines what the project does, the technologies used, and any key features.</p>
+                <button onclick="window.location.href='https://example.com/project1'">View Project</button>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <img src="img/arvie.png" alt="Project 2">
+            <div class="project-description">
+                <h3>Project Title 2</h3>
+                <p>This is another brief description of the project with relevant details about its purpose, tech stack, and features.</p>
+                <button onclick="window.location.href='https://example.com/project2'">View Project</button>
+            </div>
+        </div>
+
+        <!-- Add more projects here as needed -->
+    </div>
+</section>
+
+<section id="contact">
+    <div class="contact-container">
+        <h2>Contact Me</h2>
+        
+        <div class="contact-info">
+            <h3>Let's Get In Touch</h3>
+            <p>Email: <a href="mailto:arvilynmaealegado18@gmail.com">arvilynmaealegado18@gmail.com</a></p>
+            <p>Phone: +63 991 838 4052</p>
+
+            <div class="social-icons">
+                <a href="https://www.instagram.com/itsme.arvz" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/arvietzy.elexsander" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/arviexx" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h3>Send Me A Message</h3>
+            <form action="mailto:arvilynmaealegado18@gmail.com" method="POST" enctype="multipart/form-data">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+
+<footer>
+    <p>&copy; 2025 My Website. All rights reserved.</p>
+</footer>
+
+<script>
+    function openSidebar() {
+        document.getElementById('sidebar').style.left = '0';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeSidebar() {
+        document.getElementById('sidebar').style.left = '-250px';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function downloadCV() {
+        const link = document.createElement('a');
+        link.href = '/cv/alegado_resume.pdf';
+        link.download = 'Arvilyn_Alegado_CV.pdf';
+        link.click();
+    }
+   
+</script>
+
+</body>
+</html>
